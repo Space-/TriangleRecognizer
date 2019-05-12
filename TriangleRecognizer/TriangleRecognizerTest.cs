@@ -31,9 +31,19 @@ namespace TriangleRecognizerTest
                 {
                     return "obtuse triangle";
                 }
+
+                if (IsAcuteTriangle())
+                {
+                    return "acute triangle";
+                }
             }
 
             return "not triangle";
+        }
+
+        private bool IsAcuteTriangle()
+        {
+            return SquareSumOfTwoShortEdges() > SquareSumOfMaximumEdge();
         }
 
         private int SquareSumOfTwoShortEdges()
@@ -120,6 +130,17 @@ namespace TriangleRecognizerTest
 
             var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
             Assert.AreEqual("obtuse triangle", triangleRecognizer.GetTriangleIdentificationResult());
+        }
+
+        [Test]
+        public void Two_Edges_sum_Greater_Than_Max_Edge_and_all_edges_not_zero_return_obtuse_triangle()
+        {
+            const int edge1 = 5;
+            const int edge2 = 6;
+            const int edge3 = 7;
+
+            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            Assert.AreEqual("acute triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
     }
 }
