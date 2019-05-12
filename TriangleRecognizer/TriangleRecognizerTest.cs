@@ -1,9 +1,52 @@
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
 namespace TriangleRecognizerTest
 {
+    public class TriangleRecognizer
+    {
+        private readonly int[] _edges;
+
+        public TriangleRecognizer(params int[] edges)
+        {
+            _edges = edges;
+        }
+
+        public string GetTriangleIdentificationResult()
+        {
+            if (IsTriangle())
+            {
+                if (IsRegularTriangle())
+                {
+                    return "regular triangle";
+                }
+            }
+
+            return "not triangle";
+        }
+
+        private bool IsRegularTriangle()
+        {
+            for (var i = 0; i < _edges.Length - 1; i++)
+            {
+                if (_edges[i] != _edges[i + 1])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsTriangle()
+        {
+            Array.Sort(_edges);
+            return _edges.Length == 3 && _edges.Where(e => e <= _edges.Max()).Sum() > _edges.Max();
+        }
+    }
+
     public class TriangleRecognizerTest
     {
         [Test]
@@ -13,7 +56,8 @@ namespace TriangleRecognizerTest
             const int edge2 = 2;
             const int edge3 = 0;
 
-            Assert.AreEqual("not triangle", GetTriangleIdentificationResult(edge1, edge2, edge3));
+            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            Assert.AreEqual("not triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
         [Test]
@@ -23,39 +67,8 @@ namespace TriangleRecognizerTest
             const int edge2 = 3;
             const int edge3 = 3;
 
-            Assert.AreEqual("regular triangle", GetTriangleIdentificationResult(edge1, edge2, edge3));
-        }
-
-        private string GetTriangleIdentificationResult(params int[] edges)
-        {
-            if (IsTriangle(edges))
-            {
-                if (IsRegularTriangle(edges))
-                {
-                    return "regular triangle";
-                }
-            }
-
-            return "not triangle";
-        }
-
-        private bool IsRegularTriangle(int[] edges)
-        {
-            for (var i = 0; i < edges.Length - 1; i++)
-            {
-                if (edges[i] != edges[i + 1])
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private bool IsTriangle(int[] edges)
-        {
-            Array.Sort(edges);
-            return edges.Length == 3 && edges.Where(e => e <= edges.Max()).Sum() > edges.Max();
+            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            Assert.AreEqual("regular triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
     }
 }
