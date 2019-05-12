@@ -36,14 +36,24 @@ namespace TriangleRecognizerTest
             return "not triangle";
         }
 
+        private int SquareSumOfTwoShortEdges()
+        {
+            return _edges.Where(e => e < _edges.Max()).Select(e => e * e).Sum();
+        }
+
+        private int SquareSumOfMaximumEdge()
+        {
+            return _edges.Max() * _edges.Max();
+        }
+
         private bool IsObtuseTriangle()
         {
-            return _edges.Where(e => e < _edges.Max()).Select(e => e * e).Sum() < _edges.Max() * _edges.Max();
+            return SquareSumOfTwoShortEdges() < SquareSumOfMaximumEdge();
         }
 
         private bool IsRightTriangle()
         {
-            return _edges.Where(e => e < _edges.Max()).Select(e => e * e).Sum() == _edges.Max() * _edges.Max();
+            return SquareSumOfTwoShortEdges() == SquareSumOfMaximumEdge();
         }
 
         private bool IsRegularTriangle()
