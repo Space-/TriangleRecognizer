@@ -1,14 +1,9 @@
 using NUnit.Framework;
 
-namespace Tests
+namespace TriangleRecognizerTest
 {
-    public class Tests
+    public class TriangleRecognizerTest
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         public void Test1()
         {
