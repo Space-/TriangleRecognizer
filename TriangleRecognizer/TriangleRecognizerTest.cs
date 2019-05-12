@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
 namespace TriangleRecognizerTest
@@ -61,7 +60,7 @@ namespace TriangleRecognizerTest
         }
 
         [Test]
-        public void Three_Edges_sam_but_greater_than_zero_return_right_triangle()
+        public void Three_Edges_same_but_greater_than_zero_return_regular_triangle()
         {
             const int edge1 = 3;
             const int edge2 = 3;
