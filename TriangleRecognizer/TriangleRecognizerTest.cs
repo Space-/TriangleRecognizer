@@ -26,9 +26,19 @@ namespace TriangleRecognizerTest
                 {
                     return "right triangle";
                 }
+
+                if (IsObtuseTriangle())
+                {
+                    return "obtuse triangle";
+                }
             }
 
             return "not triangle";
+        }
+
+        private bool IsObtuseTriangle()
+        {
+            return _edges.Where(e => e < _edges.Max()).Select(e => e * e).Sum() < _edges.Max() * _edges.Max();
         }
 
         private bool IsRightTriangle()
@@ -52,14 +62,14 @@ namespace TriangleRecognizerTest
         private bool IsTriangle()
         {
             Array.Sort(_edges);
-            return _edges.Length == 3 && _edges.Where(e => e <= _edges.Max()).Sum() > _edges.Max();
+            return _edges.Length == 3 && _edges.All(e => e > 0) && _edges.Where(e => e <= _edges.Max()).Sum() > _edges.Max();
         }
     }
 
     public class TriangleRecognizerTest
     {
         [Test]
-        public void Two_Edges_sum_Less_Than_Max_Edge_return_not_triangle()
+        public void Two_Edges_sum_Less_Than_Max_Edge_and_some_edges_are_zero_return_not_triangle()
         {
             const int edge1 = 1;
             const int edge2 = 2;
@@ -89,6 +99,17 @@ namespace TriangleRecognizerTest
 
             var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
             Assert.AreEqual("right triangle", triangleRecognizer.GetTriangleIdentificationResult());
+        }
+
+        [Test]
+        public void Two_Edges_sum_Less_Than_Max_Edge_and_all_edges_not_zero_return_obtuse_triangle()
+        {
+            const int edge1 = 9;
+            const int edge2 = 11;
+            const int edge3 = 17;
+
+            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            Assert.AreEqual("obtuse triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
     }
 }
