@@ -21,9 +21,19 @@ namespace TriangleRecognizerTest
                 {
                     return "regular triangle";
                 }
+
+                if (IsRightTriangle())
+                {
+                    return "right triangle";
+                }
             }
 
             return "not triangle";
+        }
+
+        private bool IsRightTriangle()
+        {
+            return _edges.Where(e => e < _edges.Max()).Select(e => e * e).Sum() == _edges.Max() * _edges.Max();
         }
 
         private bool IsRegularTriangle()
@@ -68,6 +78,17 @@ namespace TriangleRecognizerTest
 
             var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
             Assert.AreEqual("regular triangle", triangleRecognizer.GetTriangleIdentificationResult());
+        }
+
+        [Test]
+        public void Pythagorean_theorem_return_right_triangle()
+        {
+            const int edge1 = 3;
+            const int edge2 = 4;
+            const int edge3 = 5;
+
+            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            Assert.AreEqual("right triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
     }
 }
