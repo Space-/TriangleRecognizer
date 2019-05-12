@@ -18,13 +18,13 @@ namespace TriangleRecognizerTest
 
         private string GetTriangleIdentificationResult(params int[] edges)
         {
-            return IsTriangle(edges) ? "not triangle" : "";
+            return IsTriangle(edges) ? "" : "not triangle";
         }
 
         private bool IsTriangle(int[] edges)
         {
             Array.Sort(edges);
-            return edges.Length == 3 || edges.Where(e => e < edges.Max()).Sum() > edges.Max();
+            return edges.Length == 3 && edges.Where(e => e < edges.Max()).Sum() > edges.Max();
         }
     }
 }
