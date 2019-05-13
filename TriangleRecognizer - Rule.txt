@@ -3,8 +3,7 @@
 Input: 三角形的三邊長 (皆輸入 整數)
 
 Output: "什麼類型"的三角形:
-#等腰三角形 (isosceles triangle)
-
+#等腰三角形 (isosceles triangle) (add this:  4,4,5)(4,5,5)
 #正三角形   (regular triangle) (a= b = c, a > 0)(銳角三角形 的一種)(等腰三角形的 一種)
 #直角三角形 (right triangle) (a² + b² = c²)(3,4,5)(9,40,41)
 #鈍角三角形 (obtuse triangle)(a² + b² < c²)(9,11,17)
