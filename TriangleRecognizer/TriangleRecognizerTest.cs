@@ -27,6 +27,11 @@ namespace TriangleRecognizerTest
                     return "right triangle";
                 }
 
+                if (IsIsoscelesTriangle())
+                {
+                    return "isosceles triangle";
+                }
+
                 if (IsObtuseTriangle())
                 {
                     return "obtuse triangle";
@@ -39,6 +44,13 @@ namespace TriangleRecognizerTest
             }
 
             return "not triangle";
+        }
+
+        private bool IsIsoscelesTriangle()
+        {
+            return _edges.GroupBy(e => e)
+                         .Select(g => new { EdgeLength = g.Key, EdgeCount = g.Count() })
+                         .Max(e => e.EdgeCount) == 2;
         }
 
         private bool IsAcuteTriangle()
@@ -133,7 +145,7 @@ namespace TriangleRecognizerTest
         }
 
         [Test]
-        public void Two_Edges_sum_Greater_Than_Max_Edge_and_all_edges_not_zero_return_obtuse_triangle()
+        public void Two_Edges_sum_Greater_Than_Max_Edge_and_all_edges_not_zero_return_acute_triangle()
         {
             const int edge1 = 5;
             const int edge2 = 6;
@@ -141,6 +153,17 @@ namespace TriangleRecognizerTest
 
             var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
             Assert.AreEqual("acute triangle", triangleRecognizer.GetTriangleIdentificationResult());
+        }
+
+        [Test]
+        public void Two_Edges_same_and_its_sum_greater_than_third_egde_and_all_edges_not_zero_return_isosceles_triangle()
+        {
+            const int edge1 = 4;
+            const int edge2 = 4;
+            const int edge3 = 5;
+
+            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            Assert.AreEqual("isosceles triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
     }
 }
