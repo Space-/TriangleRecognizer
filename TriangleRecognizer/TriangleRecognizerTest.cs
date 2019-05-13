@@ -155,13 +155,11 @@ namespace TriangleRecognizerTest
             Assert.AreEqual("acute triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
-        [Test]
-        public void Two_Edges_same_and_its_sum_greater_than_third_egde_and_all_edges_not_zero_return_isosceles_triangle()
+        [TestCase(5, 4, 4)]
+        [TestCase(4, 5, 5)]
+        [TestCase(4, 4, 5)]
+        public void Two_Edges_same_and_its_sum_greater_than_third_edge_and_all_edges_not_zero_return_isosceles_triangle(int edge1, int edge2, int edge3)
         {
-            const int edge1 = 4;
-            const int edge2 = 4;
-            const int edge3 = 5;
-
             var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
             Assert.AreEqual("isosceles triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
