@@ -86,7 +86,7 @@ namespace TriangleRecognizerTest
 
         private bool IsTriangle()
         {
-            return _edges.Length == 3 && _edges.All(e => e > 0) && _edges.Where(e => e <= _edges.Max()).Sum() > _edges.Max();
+            return _edges.Length == 3 && _edges.OrderBy(e => e).Take(2).Sum() > _edges.Max();
         }
     }
 
