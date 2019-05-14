@@ -3,7 +3,7 @@
 Input: 三角形的三邊長 (皆輸入 整數)
 
 Output: "什麼類型"的三角形:
-#等腰三角形 (isosceles triangle) (add this:  4,4,5, 等腰鈍角三角形)(4,5,5, 等腰銳角三角形)
+#等腰三角形 (isosceles triangle) (add this:  3,3,5, 等腰鈍角三角形)(4,5,5, 等腰銳角三角形)
 #正三角形   (regular triangle) (a= b = c, a > 0)(銳角三角形 的一種)(等腰三角形的 一種)
 #直角三角形 (right triangle) (a² + b² = c²)(3,4,5)(9,40,41)
 #鈍角三角形 (obtuse triangle)(a² + b² < c²)(9,11,17)
@@ -12,7 +12,7 @@ Output: "什麼類型"的三角形:
 
 若同時符合兩個以上條件
 則輸出為 例如:
-// (1)正三角形,銳角三角形,等腰三角形
+(1)正三角形,銳角三角形,等腰三角形
 // (2)等腰三角形,直角三角形 (等腰直角三角形)(isosceles right triangle)
 
 
