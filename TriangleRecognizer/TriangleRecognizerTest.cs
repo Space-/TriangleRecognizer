@@ -47,7 +47,7 @@ namespace TriangleRecognizerTest
         {
             return _edges.GroupBy(e => e)
                          .Select(g => new { EdgeLength = g.Key, EdgeCount = g.Count() })
-                         .Max(e => e.EdgeCount) == 2;
+                         .Max(e => e.EdgeCount) >= 2;
         }
 
         private int SquareSumOfTwoShortEdges()
@@ -115,7 +115,7 @@ namespace TriangleRecognizerTest
             const int edge3 = 3;
 
             var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
-            Assert.AreEqual("regular triangle,acute triangle", triangleRecognizer.GetTriangleIdentificationResult());
+            Assert.AreEqual("regular triangle,isosceles triangle,acute triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
         [Test]
