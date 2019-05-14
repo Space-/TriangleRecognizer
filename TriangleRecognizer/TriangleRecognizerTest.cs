@@ -25,15 +25,19 @@ namespace TriangleRecognizerTest
                 {IsAcuteTriangle, "acute triangle"}
             };
 
+            var compoundTriangleType = new List<string>();
+
             if (IsTriangle())
             {
                 foreach (var triangle in triangleType)
                 {
                     if (triangle.Key())
                     {
-                        return triangle.Value;
+                        compoundTriangleType.Add(triangle.Value);
                     }
                 }
+
+                return string.Join(",", compoundTriangleType);
             }
 
             return "not triangle";
@@ -48,7 +52,7 @@ namespace TriangleRecognizerTest
 
         private int SquareSumOfTwoShortEdges()
         {
-            return _edges.Where(e => e < _edges.Max()).Select(e => e * e).Sum();
+            return _edges.OrderBy(e => e).Take(2).Select(e => e * e).Sum();
         }
 
         private int SquareSumOfMaximumEdge()
@@ -111,7 +115,7 @@ namespace TriangleRecognizerTest
             const int edge3 = 3;
 
             var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
-            Assert.AreEqual("regular triangle", triangleRecognizer.GetTriangleIdentificationResult());
+            Assert.AreEqual("regular triangle,acute triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
         [Test]
@@ -147,13 +151,14 @@ namespace TriangleRecognizerTest
             Assert.AreEqual("acute triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
-        [TestCase(5, 4, 4)]
-        [TestCase(4, 5, 5)]
-        [TestCase(4, 4, 5)]
-        public void Two_Edges_same_and_its_sum_greater_than_third_edge_and_all_edges_not_zero_return_isosceles_triangle(int edge1, int edge2, int edge3)
+        [TestCase(5, 4, 4, "isosceles triangle,acute triangle")]
+        [TestCase(4, 5, 5, "isosceles triangle,acute triangle")]
+        [TestCase(4, 4, 5, "isosceles triangle,acute triangle")]
+        [TestCase(3, 3, 5, "isosceles triangle,obtuse triangle")]
+        public void Two_Edges_same_and_its_sum_greater_than_third_edge_and_all_edges_not_zero_return_isosceles_triangle(int edge1, int edge2, int edge3, string triangleType)
         {
             var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
-            Assert.AreEqual("isosceles triangle", triangleRecognizer.GetTriangleIdentificationResult());
+            Assert.AreEqual(triangleType, triangleRecognizer.GetTriangleIdentificationResult());
         }
     }
 }
