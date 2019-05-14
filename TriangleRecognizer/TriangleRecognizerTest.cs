@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -15,31 +16,23 @@ namespace TriangleRecognizerTest
 
         public string GetTriangleIdentificationResult()
         {
+            var triangleType = new Dictionary<Func<bool>, string>
+            {
+                {IsRegularTriangle, "regular triangle"},
+                {IsRightTriangle, "right triangle"},
+                {IsIsoscelesTriangle, "isosceles triangle"},
+                {IsObtuseTriangle, "obtuse triangle"},
+                {IsAcuteTriangle, "acute triangle"}
+            };
+
             if (IsTriangle())
             {
-                if (IsRegularTriangle())
+                foreach (var triangle in triangleType)
                 {
-                    return "regular triangle";
-                }
-
-                if (IsRightTriangle())
-                {
-                    return "right triangle";
-                }
-
-                if (IsIsoscelesTriangle())
-                {
-                    return "isosceles triangle";
-                }
-
-                if (IsObtuseTriangle())
-                {
-                    return "obtuse triangle";
-                }
-
-                if (IsAcuteTriangle())
-                {
-                    return "acute triangle";
+                    if (triangle.Key())
+                    {
+                        return triangle.Value;
+                    }
                 }
             }
 
@@ -53,11 +46,6 @@ namespace TriangleRecognizerTest
                          .Max(e => e.EdgeCount) == 2;
         }
 
-        private bool IsAcuteTriangle()
-        {
-            return SquareSumOfTwoShortEdges() > SquareSumOfMaximumEdge();
-        }
-
         private int SquareSumOfTwoShortEdges()
         {
             return _edges.Where(e => e < _edges.Max()).Select(e => e * e).Sum();
@@ -66,6 +54,11 @@ namespace TriangleRecognizerTest
         private int SquareSumOfMaximumEdge()
         {
             return _edges.Max() * _edges.Max();
+        }
+
+        private bool IsAcuteTriangle()
+        {
+            return SquareSumOfTwoShortEdges() > SquareSumOfMaximumEdge();
         }
 
         private bool IsObtuseTriangle()
@@ -93,7 +86,6 @@ namespace TriangleRecognizerTest
 
         private bool IsTriangle()
         {
-            Array.Sort(_edges);
             return _edges.Length == 3 && _edges.All(e => e > 0) && _edges.Where(e => e <= _edges.Max()).Sum() > _edges.Max();
         }
     }
