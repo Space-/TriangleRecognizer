@@ -77,15 +77,7 @@ namespace TriangleRecognizerTest
 
         private bool IsRegularTriangle()
         {
-            for (var i = 0; i < _edges.Length - 1; i++)
-            {
-                if (_edges[i] != _edges[i + 1])
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return _edges.Distinct().Count() == 1;
         }
 
         private bool IsTriangle()
