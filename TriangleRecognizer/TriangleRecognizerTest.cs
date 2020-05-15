@@ -18,44 +18,36 @@ namespace TriangleRecognizerTest
         [Test]
         public void Three_Edges_same_but_greater_than_zero_return_regular_triangle()
         {
-            const int edge1 = 3;
-            const int edge2 = 3;
-            const int edge3 = 3;
+            GivenEdges(3, 3, 3);
 
-            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            var triangleRecognizer = new TriangleRecognizer(3, 3, 3);
             Assert.AreEqual("regular triangle,isosceles triangle,acute triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
         [Test]
         public void Pythagorean_theorem_return_right_triangle()
         {
-            const int edge1 = 3;
-            const int edge2 = 4;
-            const int edge3 = 5;
+            GivenEdges(3, 4, 5);
 
-            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            var triangleRecognizer = new TriangleRecognizer(3, 4, 5);
             Assert.AreEqual("right triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
         [Test]
         public void Two_Edges_sum_Less_Than_Max_Edge_and_all_edges_not_zero_return_obtuse_triangle()
         {
-            const int edge1 = 9;
-            const int edge2 = 11;
-            const int edge3 = 17;
+            GivenEdges(9, 11, 17);
 
-            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            var triangleRecognizer = new TriangleRecognizer(9, 11, 17);
             Assert.AreEqual("obtuse triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
         [Test]
         public void Two_Edges_sum_Greater_Than_Max_Edge_and_all_edges_not_zero_return_acute_triangle()
         {
-            const int edge1 = 5;
-            const int edge2 = 6;
-            const int edge3 = 7;
+            GivenEdges(5, 6, 7);
 
-            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            var triangleRecognizer = new TriangleRecognizer(5, 6, 7);
             Assert.AreEqual("acute triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
