@@ -13,7 +13,7 @@ namespace TriangleRecognizerTest
             GivenEdges(1, 2, 0);
             GivenTriangleRecognizer();
 
-            Assert.AreEqual("not triangle", _triangleRecognizer.GetTriangleIdentificationResult());
+            RecognizeResultShouldBe("not triangle");
         }
 
         [Test]
@@ -22,7 +22,7 @@ namespace TriangleRecognizerTest
             GivenEdges(3, 3, 3);
             GivenTriangleRecognizer();
 
-            Assert.AreEqual("regular triangle,isosceles triangle,acute triangle", _triangleRecognizer.GetTriangleIdentificationResult());
+            RecognizeResultShouldBe("regular triangle,isosceles triangle,acute triangle");
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace TriangleRecognizerTest
             GivenEdges(3, 4, 5);
             GivenTriangleRecognizer();
 
-            Assert.AreEqual("right triangle", _triangleRecognizer.GetTriangleIdentificationResult());
+            RecognizeResultShouldBe("right triangle");
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace TriangleRecognizerTest
             GivenEdges(9, 11, 17);
             GivenTriangleRecognizer();
 
-            Assert.AreEqual("obtuse triangle", _triangleRecognizer.GetTriangleIdentificationResult());
+            RecognizeResultShouldBe("obtuse triangle");
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace TriangleRecognizerTest
             GivenEdges(5, 6, 7);
             GivenTriangleRecognizer();
 
-            Assert.AreEqual("acute triangle", _triangleRecognizer.GetTriangleIdentificationResult());
+            RecognizeResultShouldBe("acute triangle");
         }
 
         [TestCase(5, 4, 4, "isosceles triangle,acute triangle")]
@@ -61,7 +61,7 @@ namespace TriangleRecognizerTest
             GivenEdges(edge1, edge2, edge3);
             GivenTriangleRecognizer();
 
-            Assert.AreEqual(triangleType, _triangleRecognizer.GetTriangleIdentificationResult());
+            RecognizeResultShouldBe(triangleType);
         }
 
         private void GivenEdges(params int[] edges)
@@ -72,6 +72,11 @@ namespace TriangleRecognizerTest
         private void GivenTriangleRecognizer()
         {
             _triangleRecognizer = new TriangleRecognizer(Edges);
+        }
+
+        private void RecognizeResultShouldBe(string result)
+        {
+            Assert.AreEqual(result, _triangleRecognizer.GetTriangleIdentificationResult());
         }
     }
 }
