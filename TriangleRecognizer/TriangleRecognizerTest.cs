@@ -4,15 +4,20 @@ namespace TriangleRecognizerTest
 {
     public class TriangleRecognizerTest
     {
+        public int[] Edges { get; private set; }
+
         [Test]
         public void Two_Edges_sum_Less_Than_Max_Edge_and_some_edges_are_zero_return_not_triangle()
         {
-            const int edge1 = 1;
-            const int edge2 = 2;
-            const int edge3 = 0;
+            GivenEdges(1, 2, 0);
 
-            var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
+            var triangleRecognizer = new TriangleRecognizer(1, 2, 0);
             Assert.AreEqual("not triangle", triangleRecognizer.GetTriangleIdentificationResult());
+        }
+
+        private void GivenEdges(params int[] edges)
+        {
+            Edges = edges;
         }
 
         [Test]
