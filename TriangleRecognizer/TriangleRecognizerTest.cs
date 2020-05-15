@@ -15,11 +15,6 @@ namespace TriangleRecognizerTest
             Assert.AreEqual("not triangle", triangleRecognizer.GetTriangleIdentificationResult());
         }
 
-        private void GivenEdges(params int[] edges)
-        {
-            Edges = edges;
-        }
-
         [Test]
         public void Three_Edges_same_but_greater_than_zero_return_regular_triangle()
         {
@@ -72,6 +67,11 @@ namespace TriangleRecognizerTest
         {
             var triangleRecognizer = new TriangleRecognizer(edge1, edge2, edge3);
             Assert.AreEqual(triangleType, triangleRecognizer.GetTriangleIdentificationResult());
+        }
+
+        private void GivenEdges(params int[] edges)
+        {
+            Edges = edges;
         }
     }
 }
